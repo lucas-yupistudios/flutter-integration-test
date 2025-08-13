@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         key: const ValueKey('increment'),
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, semanticLabel: 'fabAddIcon'),
       ),
     );
   }
