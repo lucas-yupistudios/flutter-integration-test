@@ -4,4 +4,4 @@ appId: com.example.flutter_integration_test
     clearState: true
 - assertVisible: "0"
 - tapOn: fabAddIcon
-- assertVisible: "1"
+- assertVisible: "2"
