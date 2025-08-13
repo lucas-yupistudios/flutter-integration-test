@@ -24,7 +24,7 @@ jobs:
       - name: Install Maestro CLI
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
-          export PATH="$HOME/.maestro/bin:$PATH"
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
 
       - name: Build debug APK
         run: flutter build apk --debug
@@ -40,8 +40,5 @@ jobs:
         with:
           api-level: 29
           script: |
-            # Instalar o APK no emulador
             adb install build/app/outputs/flutter-apk/app-debug.apk
-
-            # Rodar testes Maestro
-            maestro test .\integration_test\maestro\flow.yaml
+            maestro test integration_test/maestro/flow.yaml
