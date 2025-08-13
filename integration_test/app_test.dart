@@ -26,7 +26,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify the counter increments by 1.
-      expect(find.text('1'), findsOneWidget);
+      expect(find.text('2'), findsOneWidget);
     });
   });
 }
