@@ -58,3 +58,10 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           script: flutter test integration_test
+
+      - name: Kill crashpad_handler processes
+        if: always()
+        run: |
+          pkill -SIGTERM crashpad_handler || true
+          sleep 5
+          pkill -SIGKILL crashpad_handler || true

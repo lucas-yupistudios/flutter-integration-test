@@ -68,3 +68,10 @@ jobs:
           script: |
             adb install build/app/outputs/flutter-apk/app-debug.apk
             maestro test integration_test/maestro/flow.yaml
+
+      - name: Kill crashpad_handler processes
+        if: always()
+        run: |
+          pkill -SIGTERM crashpad_handler || true
+          sleep 5
+          pkill -SIGKILL crashpad_handler || true
