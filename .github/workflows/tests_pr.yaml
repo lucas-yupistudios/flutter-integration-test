@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  integration-test:
+  tests:
+    name: Run Unit and Integration Tests
     runs-on: ubuntu-latest
 
     steps:
