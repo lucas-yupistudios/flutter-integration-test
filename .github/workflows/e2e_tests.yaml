@@ -1,18 +1,10 @@
 name: Flutter E2E Tests on Release Tags
 
 on:
-  # Dispara manualmente pela UI
   workflow_dispatch:
-    inputs:
-      branch_or_tag:
-        description: 'Branch or Tag to run tests'
-        required: true
-        default: 'main'
-
-  # Dispara automaticamente quando criar uma tag
   push:
     tags:
-      - 'v*' # Exemplo: v1.0.0
+      - 'v*'
 
 jobs:
   tests:
@@ -22,8 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch_or_tag || github.ref }}
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
