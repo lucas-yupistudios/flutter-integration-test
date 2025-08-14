@@ -56,23 +56,56 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - name: Install Android SDK
-        uses: malinskiy/action-android/install-sdk@release/0.1.6
-
-      - name: Set up platform tools
-        run: sdkmanager platform-tools
-
-      - name: Start ADB
-        run: adb devices
-
-      - name: Verify ANDROID_HOME
-        run: echo $ANDROID_HOME
-
       - name: Start emulator and run integration tests
-      - uses: malinskiy/action-android/emulator-run-cmd@release/0.1.6
+        uses: reactivecircus/android-emulator-runner@v2
+        timeout-minutes: 8
         with:
-          cmd: flutter test integration_test
-          api: 31
-          cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -cores 2 -memory 3072 -no-window
-          tag: google_apis
-          abi: x86_64
+          api-level: 31
+          target: google_apis
+          arch: x86_64
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: flutter test integration_test
+
+# jobs:
+#   integration-test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+
+#       - name: Setup Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           channel: 'stable'
+
+#       - name: Install dependencies
+#         run: flutter pub get
+
+#       - name: Enable KVM
+#         run: |
+#           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+#           sudo udevadm control --reload-rules
+#           sudo udevadm trigger --name-match=kvm
+
+#       - name: Install Android SDK
+#         uses: malinskiy/action-android/install-sdk@release/0.1.6
+
+#       - name: Set up platform tools
+#         run: sdkmanager platform-tools
+
+#       - name: Start ADB
+#         run: adb devices
+
+#       - name: Verify ANDROID_HOME
+#         run: echo $ANDROID_HOME
+
+#       - name: Start emulator and run integration tests
+#       - uses: malinskiy/action-android/emulator-run-cmd@release/0.1.6
+#         with:
+#           cmd: flutter test integration_test
+#           api: 31
+#           cmdOptions: -no-snapshot-save -noaudio -no-boot-anim -cores 2 -memory 3072 -no-window
+#           tag: google_apis
+#           abi: x86_64
