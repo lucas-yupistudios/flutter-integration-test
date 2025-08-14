@@ -5,14 +5,14 @@ on:
   workflow_dispatch:
     inputs:
       branch_or_tag:
-        description: 'Branch ou Tag para rodar os testes'
+        description: 'Branch or Tag to run tests'
         required: true
         default: 'main'
 
   # Dispara automaticamente quando criar uma tag
   push:
     tags:
-      - 'release-*' # Exemplo: release-1.0.0
+      - 'v*' # Exemplo: v1.0.0
 
 jobs:
   tests:
@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch_or_tag || github.ref }}
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
