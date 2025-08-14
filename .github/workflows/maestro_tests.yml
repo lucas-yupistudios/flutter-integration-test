@@ -1,7 +1,7 @@
 name: Run maestro tests
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
