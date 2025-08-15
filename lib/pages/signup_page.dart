@@ -53,11 +53,9 @@ class _SignUpPageState extends State<SignUpPage> {
         password: _passwordCtrl.text,
       );
       if (!mounted) return;
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Conta criada!')));
-      }
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Conta criada!')));
       Navigator.of(context).pushReplacementNamed('/');
     } catch (e) {
       if (!mounted) return;
